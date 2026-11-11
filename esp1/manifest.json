@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "target": "jobbox-esp1-s3-n16r8",
+  "version": "0.1.5+6",
+  "build": 6,
+  "size": 1139600,
+  "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp1/firmware-0.1.5-build6.bin",
+  "sha256": "baa48a73f366ef9eee57101a15d6085a0937226a8bac68df27a2dc2aa9146673"
+}
