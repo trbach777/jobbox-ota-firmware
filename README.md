@@ -12,17 +12,17 @@ This distribution contains application images and manifests only. Wi-Fi credenti
 are provisioned on the devices. Flash backups and NVS data are not distributed.
 See release_audit.json for the exact versions and SHA-256 values.
 
-## Current manual fan test profile
+## Current C1 test profile
 
-ESP1 0.1.20+21 reads only the installed APM10 on C1. C2/C3 are not installed.
-All fans start off. Manual HMI tests are available without valid C2/C3 data.
-AUTO remains idle and keeps fans off until a production control profile is configured.
-This demo does not certify worker exposure or apply occupational dust thresholds.
+ESP1 0.1.21+22 reads the installed APM10 on C1. All fans start off.
+Use the HMI Control page to start or pause C1 AUTO. The test driver uses
+filtered PM2.5 thresholds of 15 and 35 µg/m³. Fans stop on invalid C1 data.
+These values are for model testing. Workplace exposure requires occupational sampling.
 
-Update ESP2 to 0.8.8+19 first, then ESP1 to 0.1.20+21. For ESP1 OTA, hold
+Update ESP2 to 0.8.12+23 first, then ESP1 to 0.1.21+22. For ESP1 OTA, hold
 physical B1+B5 for three seconds to enter maintenance, then confirm on the HMI.
 
-- HMI: Control, choose PWM, Apply, Confirm. AUTO/Stop switches all fans off.
+- HMI: Control, choose PWM, Apply, Confirm. The C1 AUTO button starts or pauses automatic testing.
 - B1 GPIO2: AUTO/MANUAL. B2 GPIO8: fan 1. B3 GPIO21: fan 2. B4 GPIO39: fan 3.
 - B2-B4 increase local duty and wrap back to zero. B5 GPIO41 mutes the buzzer.
 - HMI manual leases last three seconds; loss of renewals switches fans off.
