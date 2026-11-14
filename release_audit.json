@@ -6,22 +6,22 @@
       "project": "jobbox_esp1",
       "schema": 1,
       "target": "jobbox-esp1-s3-n16r8",
-      "version": "0.1.22+23",
-      "build": 23,
-      "size": 1152704,
-      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp1/firmware-0.1.22-build23.bin",
-      "sha256": "2701460f84c674ce201748cde35b0a0d17910c0642455f50180104eae1f641fe"
+      "version": "0.1.23+24",
+      "build": 24,
+      "size": 1153056,
+      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp1/firmware-0.1.23-build24.bin",
+      "sha256": "a8c92734f280f981a1b999c3df49b6a376200a7d1e0153a0e0c2a0a3bf5d2a2e"
     },
     {
       "node": "esp2",
       "project": "jobbox_esp2_hmi",
       "schema": 1,
       "target": "jobbox-esp2-s3-n16r8",
-      "version": "0.8.19+30",
-      "build": 30,
-      "size": 1366992,
-      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.19-build30.bin",
-      "sha256": "099da228fe047e5d5f973049e13c3b1908096450c8f986fa248632def6cd0f8d"
+      "version": "0.8.20+31",
+      "build": 31,
+      "size": 1367280,
+      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.20-build31.bin",
+      "sha256": "4e4f4255bac2b36c42a86f38bf4dee54a56288d3952f072b4f062d2613304ce9"
     }
   ],
   "checks": {
