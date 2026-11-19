@@ -12,12 +12,20 @@ This distribution contains application images and manifests only. Wi-Fi credenti
 are provisioned on the devices. Flash backups and NVS data are not distributed.
 See release_audit.json for the exact versions and SHA-256 values.
 
-## Current C1 test profile
+## Current three-sensor profile
 
-ESP1 0.1.24+25 reads the installed APM10 on C1. All fans start off.
-Use the HMI Control page to start or pause C1 AUTO. The test driver uses
-filtered PM2.5 thresholds of 15 and 35 µg/m³. Fans stop on invalid C1 data.
-These values are for model testing. Workplace exposure requires occupational sampling.
+ESP1 0.1.25+26 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
+and two BGSY210 sensors on C2 (UART2 RX GPIO9) and C3 (UART0 RX GPIO38).
+Each BGSY210 TXD must pass through a 3.3 V logic buffer. The ESP1 console uses
+native USB Serial/JTAG so UART0 is reserved for C3. Sensor warm-up takes about
+60 seconds; OTA startup validation requires valid readings from all three sensors
+within 180 seconds.
+
+All fans start off. Use the HMI Control page to start or pause C1 AUTO.
+C2/C3 are included in displays, charts, assistant reports and SD logging.
+AUTO remains based on filtered C1 PM2.5 and stops the fans on invalid C1 data.
+Previously saved AUTO settings are restored from NVS. Fresh-device defaults
+are 15 and 35 µg/m³; these are model-test settings, not occupational exposure limits.
 
 Current ESP2 is 0.8.21+32. ESP1 0.1.23+24 and later support updates entirely
 from the HMI Updates page. Older ESP1 firmware needs the original maintenance
