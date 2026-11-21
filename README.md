@@ -14,7 +14,7 @@ See release_audit.json for the exact versions and SHA-256 values.
 
 ## Current three-sensor profile
 
-ESP1 0.1.30+31 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
+ESP1 0.1.31+32 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
 and two BGSY210 sensors on C2 (UART2 RX GPIO9) and C3 (UART0 RX GPIO38).
 Each BGSY210 TXD must pass through a 3.3 V logic buffer. The ESP1 console uses
 native USB Serial/JTAG so UART0 is reserved for C3. Sensor warm-up takes about
@@ -27,7 +27,7 @@ AUTO remains based on filtered C1 PM2.5 and stops the fans on invalid C1 data.
 Previously saved AUTO settings are restored from NVS. Fresh-device defaults
 are 15 and 35 µg/m³; these are model-test settings, not occupational exposure limits.
 
-Current ESP2 is 0.8.21+32. ESP1 0.1.23+24 and later support updates entirely
+Current ESP2 is 0.8.22+33. ESP1 0.1.23+24 and later support updates entirely
 from the HMI Updates page. Older ESP1 firmware needs the original maintenance
 procedure or a one-time USB bootstrap. Keep power on until reboot and validation finish.
 
@@ -66,3 +66,37 @@ them after restart. AUTO start/pause from paired clients does not require HMI co
 - Local button control remains independent of Wi-Fi and HMI connectivity.
 
 Voice buzzer control and HMI button conversation with a 1.5-second silence endpoint remain available.
+
+## Persistent dust reports and safety handbook (2026-11-21)
+
+Update ESP2 to 0.8.22+33 first, then ESP1 to 0.1.31+32. Both require the
+normal HMI update confirmation. No device installation has been verified for
+this release; the owner has powered the model off until the next day.
+
+ESP1 keeps the existing per-boot raw CSV log and adds checksummed daily `.jds`
+checkpoints on SD. Each sensor contributes only a newly observed valid sample.
+Dates and Monday-to-Sunday weeks use Vietnam time (UTC+7). Reports contain
+sample mean, minimum, maximum, first peak time, sample count, and minutes with
+observations. Missing/offline data is not zero. These are observed-sample
+statistics, not full-shift occupational exposure measurements.
+
+The assistant and paired web/Android API can query a rolling 35-day window.
+Current-day data is provisional. Allow about 70 seconds after startup to sync
+all historical dates from ESP1. Checkpoints normally flush each minute; an
+abrupt power loss can lose recent uncommitted statistics. CRC recovery ignores
+torn/corrupt trailing checkpoints but cannot guarantee against SD filesystem
+or hardware damage. No old CSV import, automatic log deletion, or cloud upload
+is added. New statistics start after this firmware is installed with a usable
+SD and a valid RTC/network clock. Existing CSV files are preserved.
+
+Rabit gains `self.jobbox.get_dust_history` and `self.jobbox.get_safety_guide`.
+The bundled Vietnamese handbook covers textile dust, sewing ergonomics,
+machine maintenance, electrical safety, fire/evacuation, and interpretation
+of JOB BOX readings. It uses reviewed HSE, OSHA and GOV.UK guidance. It is
+reference material alongside the workshop's own risk assessment and training;
+JOB BOX is not a fire alarm or occupational exposure compliance instrument.
+The text can be read locally; cloud assistant Q&A still needs Internet.
+
+Android APK 0.1.6 is prepared separately and is not distributed in this
+firmware-only repository. Older Android APKs do not show the new reports and
+handbook sections.
