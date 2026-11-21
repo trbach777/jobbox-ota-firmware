@@ -14,7 +14,7 @@ See release_audit.json for the exact versions and SHA-256 values.
 
 ## Current three-sensor profile
 
-ESP1 0.1.29+30 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
+ESP1 0.1.30+31 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
 and two BGSY210 sensors on C2 (UART2 RX GPIO9) and C3 (UART0 RX GPIO38).
 Each BGSY210 TXD must pass through a 3.3 V logic buffer. The ESP1 console uses
 native USB Serial/JTAG so UART0 is reserved for C3. Sensor warm-up takes about
@@ -46,7 +46,12 @@ them after restart. AUTO start/pause from paired clients does not require HMI co
 - B5 GPIO41: increase fan 1 (supply).
 - A fan key selects local MANUAL control and preserves the other two fan duties.
   Press B4 to return to AUTO. The GPIO wiring is unchanged.
-- Fans 1/2 cycle through 0/20/40/60/80/100/0 percent. Fan 3 respects the current
+- Supply fan 1 has a 75-percent minimum: OFF remains 0%, requests 1-74% become
+  75%, and 75-100% are unchanged. The floor covers AUTO (including saved settings),
+  remote manual commands and physical buttons, and is reported in actual output.
+  Saved AUTO settings are not rewritten. Stopped/fault/OTA/maintenance outputs
+  remain stopped. B5 cycles through 0/75/80/100/0 percent.
+- Fan 2 cycles through 0/20/40/60/80/100/0 percent. Fan 3 respects the current
   30-percent minimum and cycles through 0/30/40/60/80/100/0 percent.
 - Fan keys are blocked during maintenance, OTA or an I/O fault; B2 still mutes.
 - Buttons use internal pull-ups: connect each normally open switch from its GPIO
