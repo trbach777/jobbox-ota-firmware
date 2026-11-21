@@ -14,7 +14,7 @@ See release_audit.json for the exact versions and SHA-256 values.
 
 ## Current three-sensor profile
 
-ESP1 0.1.25+26 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
+ESP1 0.1.26+27 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
 and two BGSY210 sensors on C2 (UART2 RX GPIO9) and C3 (UART0 RX GPIO38).
 Each BGSY210 TXD must pass through a 3.3 V logic buffer. The ESP1 console uses
 native USB Serial/JTAG so UART0 is reserved for C3. Sensor warm-up takes about
@@ -37,8 +37,19 @@ PWM at the three stages, then save. ESP1 stores the settings in NVS and restores
 them after restart. AUTO start/pause from paired clients does not require HMI confirmation.
 
 - HMI: Control, choose PWM, Apply, Confirm. The C1 AUTO button starts or pauses automatic testing.
-- B1 GPIO2: AUTO/MANUAL. B2 GPIO8: fan 1. B3 GPIO21: fan 2. B4 GPIO39: fan 3.
-- B2-B4 increase local duty and wrap back to zero. B5 GPIO41 mutes the buzzer.
+- B1 GPIO2: AUTO/MANUAL. B2 GPIO8: toggle the signal buzzer (continuous on/off).
+- B3 GPIO21: increase fan 2 in MANUAL. B4 GPIO39: start configured C1 AUTO.
+- B5 GPIO41: increase supply fan 1 in MANUAL, 0/20/40/60/80/100/0 percent.
+- B2 does not change fan mode, duty or the manual-control epoch. Turning it off
+  also mutes automatic audible alarms for five minutes. Maintenance/OTA/reboot
+  clears the manually latched signal. Timed AI buzzer commands still work.
+- Buttons use internal pull-ups: connect each normally open switch from its GPIO
+  to common GND. External 10k pull-ups remain useful with long/noisy wiring.
+- Each button is debounced independently for 80ms; hold about 0.3s and release.
+  One event is generated per qualified release, with no key repeat. A boot-held
+  key or read error/sample gap over 350ms requires stable release before rearming.
+- B1+B5 held for three seconds retains the maintenance shortcut; that chord
+  suppresses individual release actions. Software cannot reject every long EMI pulse.
 - HMI manual leases last three seconds; loss of renewals switches fans off.
 - Local button changes invalidate older HMI manual commands.
 - Local button control remains independent of Wi-Fi and HMI connectivity.
