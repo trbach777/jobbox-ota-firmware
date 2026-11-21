@@ -14,7 +14,7 @@ See release_audit.json for the exact versions and SHA-256 values.
 
 ## Current three-sensor profile
 
-ESP1 0.1.27+28 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
+ESP1 0.1.28+29 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
 and two BGSY210 sensors on C2 (UART2 RX GPIO9) and C3 (UART0 RX GPIO38).
 Each BGSY210 TXD must pass through a 3.3 V logic buffer. The ESP1 console uses
 native USB Serial/JTAG so UART0 is reserved for C3. Sensor warm-up takes about
@@ -37,13 +37,16 @@ PWM at the three stages, then save. ESP1 stores the settings in NVS and restores
 them after restart. AUTO start/pause from paired clients does not require HMI confirmation.
 
 - HMI: Control, choose PWM, Apply, Confirm. The C1 AUTO button starts or pauses automatic testing.
-- B1 GPIO2: toggle C1 AUTO on/off. Turning AUTO off stops all three fans. B2 GPIO8: toggle the signal buzzer (continuous on/off).
-- B1 never selects MANUAL. Select manual fan control from the HMI/web/app.
-- B3 GPIO21: increase fan 2 in MANUAL. B4 GPIO39: start configured C1 AUTO.
-- B5 GPIO41: increase supply fan 1 in MANUAL, 0/20/40/60/80/100/0 percent.
-- B2 does not change fan mode, duty or the manual-control epoch. Turning it off
-  also mutes automatic audible alarms for five minutes. Maintenance/OTA/reboot
-  clears the manually latched signal. Timed AI buzzer commands still work.
+- B1 GPIO2: toggle C1 AUTO on/off. Turning AUTO off stops all three fans.
+- B2 GPIO8: mute the buzzer for five minutes only. Another click restarts the
+  five-minute interval; it never turns the buzzer on. Timed voice buzzer commands
+  remain available and B2 cancels an active timed signal.
+- B3 GPIO21 / B4 GPIO39 / B5 GPIO41: increase fans 1 / 2 / 3 respectively.
+  A fan key selects local MANUAL control and preserves the other two fan duties.
+  Press B1 to return to AUTO.
+- Fans 1/2 cycle through 0/20/40/60/80/100/0 percent. Fan 3 respects the current
+  30-percent minimum and cycles through 0/30/40/60/80/100/0 percent.
+- Fan keys are blocked during maintenance, OTA or an I/O fault; B2 still mutes.
 - Buttons use internal pull-ups: connect each normally open switch from its GPIO
   to common GND. External 10k pull-ups remain useful with long/noisy wiring.
 - Each button is debounced independently for 80ms; hold about 0.3s and release.
