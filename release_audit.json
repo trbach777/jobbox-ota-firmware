@@ -17,11 +17,11 @@
       "project": "jobbox_esp2_hmi",
       "schema": 1,
       "target": "jobbox-esp2-s3-n16r8",
-      "version": "0.8.24+35",
-      "build": 35,
-      "size": 1405008,
-      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.24-build35.bin",
-      "sha256": "7721d8d0488aaf6c6bf9c89dca116ade3e04525d25c3f43f8e6484e0a062511f"
+      "version": "0.8.25+36",
+      "build": 36,
+      "size": 1405648,
+      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.25-build36.bin",
+      "sha256": "1e39a49aeed9c039f672d144cc653ab7fb1b76596fb782754a8152e819849d42"
     }
   ],
   "checks": {

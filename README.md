@@ -27,7 +27,7 @@ AUTO remains based on filtered C1 PM2.5 and stops the fans on invalid C1 data.
 Previously saved AUTO settings are restored from NVS. Fresh-device defaults
 are 15 and 35 µg/m³; these are model-test settings, not occupational exposure limits.
 
-Current ESP2 is 0.8.24+35. ESP1 0.1.23+24 and later support updates entirely
+Current ESP2 is 0.8.25+36. ESP1 0.1.23+24 and later support updates entirely
 from the HMI Updates page. Older ESP1 firmware needs the original maintenance
 procedure or a one-time USB bootstrap. Keep power on until reboot and validation finish.
 
@@ -150,3 +150,10 @@ by day/month. It needs the new LiveSheets code, Sheets permission and deployment
 Missing samples stay blank; retries do not duplicate rows. Web and APK 0.1.8 expose
 the validated private Sheet link after a successful acknowledgement.
 No endpoint, backup key, Sheet ID or sensor data is included in these public images.
+
+## HTTPS transport fix (ESP2 0.8.25+36)
+
+Static assets, JSON and audio use bounded 1024-byte HTTP chunks to avoid
+intermittent TLS responses truncated at the first 4096-byte record. Static
+assets close their connection after transfer to release the limited HTTPS slots.
+ESP1 remains 0.1.33+34. Backup account configuration is still required.
