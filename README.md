@@ -14,7 +14,7 @@ See release_audit.json for the exact versions and SHA-256 values.
 
 ## Current three-sensor profile
 
-ESP1 0.1.32+33 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
+ESP1 0.1.33+34 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
 and two BGSY210 sensors on C2 (UART2 RX GPIO9) and C3 (UART0 RX GPIO38).
 Each BGSY210 TXD must pass through a 3.3 V logic buffer. The ESP1 console uses
 native USB Serial/JTAG so UART0 is reserved for C3. Sensor warm-up takes about
@@ -27,7 +27,7 @@ AUTO remains based on filtered C1 PM2.5 and stops the fans on invalid C1 data.
 Previously saved AUTO settings are restored from NVS. Fresh-device defaults
 are 15 and 35 µg/m³; these are model-test settings, not occupational exposure limits.
 
-Current ESP2 is 0.8.23+34. ESP1 0.1.23+24 and later support updates entirely
+Current ESP2 is 0.8.24+35. ESP1 0.1.23+24 and later support updates entirely
 from the HMI Updates page. Older ESP1 firmware needs the original maintenance
 procedure or a one-time USB bootstrap. Keep power on until reboot and validation finish.
 
@@ -141,3 +141,12 @@ Optional ESP1 N16R8 octal PSRAM is initialized at 40 MHz; a missing external
 memory is tolerated, and allocation/upload failures keep the SD source.
 The existing control pins, C1 AUTO, button map, 75% supply minimum and OTA startup
 sensor validation policy are retained. No physical retention test is claimed.
+
+## Live Google Sheets (2026-11-23)
+
+ESP1 seals raw CSV segments each minute and prioritizes the latest segment for upload.
+The private Google receiver can upsert one last-observation row per minute, grouped
+by day/month. It needs the new LiveSheets code, Sheets permission and deployment.
+Missing samples stay blank; retries do not duplicate rows. Web and APK 0.1.8 expose
+the validated private Sheet link after a successful acknowledgement.
+No endpoint, backup key, Sheet ID or sensor data is included in these public images.
