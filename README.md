@@ -27,7 +27,7 @@ AUTO remains based on filtered C1 PM2.5 and stops the fans on invalid C1 data.
 Previously saved AUTO settings are restored from NVS. Fresh-device defaults
 are 15 and 35 µg/m³; these are model-test settings, not occupational exposure limits.
 
-Current ESP2 is 0.8.26+37. ESP1 0.1.23+24 and later support updates entirely
+Current ESP2 is 0.8.27+38. ESP1 0.1.23+24 and later support updates entirely
 from the HMI Updates page. Older ESP1 firmware needs the original maintenance
 procedure or a one-time USB bootstrap. Keep power on until reboot and validation finish.
 
@@ -167,3 +167,12 @@ a mistaken live-reading tool call to the recorded daily sample sum/count.
 Spoken results include each location, missing samples, partial-day and stale-cache
 notes. Host regression and firmware build passed; live voice acceptance remains pending.
 ESP1 remains 0.1.33+34; its retained statistics and backup configuration are used.
+
+## Daily statistics diagnostics (ESP2 0.8.27+38)
+
+Recognizes composed/decomposed and uppercase Vietnamese today-average questions.
+Daily reports distinguish a pending ESP1 summary, no samples, partial samples and
+a future date. At midnight, a pending new-day packet is not labelled a future day.
+Authenticated state adds compact ai_tools diagnostics (tool name, turn and history
+status/date) to separate a missing tool call from unavailable recorded statistics.
+No configuration, statistics or secrets are reset. Live acceptance is still pending.
