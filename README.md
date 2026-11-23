@@ -27,7 +27,7 @@ AUTO remains based on filtered C1 PM2.5 and stops the fans on invalid C1 data.
 Previously saved AUTO settings are restored from NVS. Fresh-device defaults
 are 15 and 35 µg/m³; these are model-test settings, not occupational exposure limits.
 
-Current ESP2 is 0.8.25+36. ESP1 0.1.23+24 and later support updates entirely
+Current ESP2 is 0.8.26+37. ESP1 0.1.23+24 and later support updates entirely
 from the HMI Updates page. Older ESP1 firmware needs the original maintenance
 procedure or a one-time USB bootstrap. Keep power on until reboot and validation finish.
 
@@ -157,3 +157,13 @@ Static assets, JSON and audio use bounded 1024-byte HTTP chunks to avoid
 intermittent TLS responses truncated at the first 4096-byte record. Static
 assets close their connection after transfer to release the limited HTTPS slots.
 ESP1 remains 0.1.33+34. Backup account configuration is still required.
+
+## Today's average assistant query (ESP2 0.8.26+37)
+
+Adds a dedicated current-day statistics tool using the device date in UTC+7.
+General history defaults to a day when period is absent, while explicit weekly
+and dated reports are preserved. A recognized today's-average question redirects
+a mistaken live-reading tool call to the recorded daily sample sum/count.
+Spoken results include each location, missing samples, partial-day and stale-cache
+notes. Host regression and firmware build passed; live voice acceptance remains pending.
+ESP1 remains 0.1.33+34; its retained statistics and backup configuration are used.
