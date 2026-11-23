@@ -14,7 +14,7 @@ See release_audit.json for the exact versions and SHA-256 values.
 
 ## Current three-sensor profile
 
-ESP1 0.1.31+32 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
+ESP1 0.1.32+33 reads one APM10 on C1 (direct I2C, SDA GPIO4 / SCL GPIO5)
 and two BGSY210 sensors on C2 (UART2 RX GPIO9) and C3 (UART0 RX GPIO38).
 Each BGSY210 TXD must pass through a 3.3 V logic buffer. The ESP1 console uses
 native USB Serial/JTAG so UART0 is reserved for C3. Sensor warm-up takes about
@@ -27,7 +27,7 @@ AUTO remains based on filtered C1 PM2.5 and stops the fans on invalid C1 data.
 Previously saved AUTO settings are restored from NVS. Fresh-device defaults
 are 15 and 35 µg/m³; these are model-test settings, not occupational exposure limits.
 
-Current ESP2 is 0.8.22+33. ESP1 0.1.23+24 and later support updates entirely
+Current ESP2 is 0.8.23+34. ESP1 0.1.23+24 and later support updates entirely
 from the HMI Updates page. Older ESP1 firmware needs the original maintenance
 procedure or a one-time USB bootstrap. Keep power on until reboot and validation finish.
 
@@ -100,3 +100,44 @@ The text can be read locally; cloud assistant Q&A still needs Internet.
 Android APK 0.1.6 is prepared separately and is not distributed in this
 firmware-only repository. Older Android APKs do not show the new reports and
 handbook sections.
+
+## Daily private Google Drive backup and SD retention (2026-11-23)
+
+Current pair: ESP2 0.8.23+34 (install first), ESP1 0.1.32+33. Cloud backup
+is DISABLED by default and cannot operate until the owner deploys the prepared
+Google Apps Script receiver and provisions its HTTPS /exec URL and random key
+through the paired, trusted HTTPS JOB BOX web page. No private cloud URL/key,
+Google credentials, flash backup, or NVS is included in this distribution.
+No real Google deployment, board installation or upload is verified yet.
+
+ESP1 rotates raw logs into date/boot/part CSV files below 64 KiB, then backs up
+finished days from 00:10 Vietnam time (UTC+7). If powered off or offline it
+catches up when available. The network task is separate from the sensor loop;
+only the existing logger task touches SD, with one bounded backup job in flight.
+The uploader verifies TLS and exactly binds each server ACK to device, file,
+byte count and SHA-256. ContentService response redirects are followed as GET
+only to the Google content host; the POST/key is never replayed there.
+
+A retention sweep is due every seven calendar days, checkpointed in NVS.
+Raw logs must be at least seven days old and JDS summaries at least 35 days
+old (the owner's confirmed choice). Before deletion, the receiver must freshly
+confirm the remote bytes again and ESP1 must recheck the source. Prior SD ACK
+receipts alone cannot authorize deletion. Failed uploads, absent SD, low memory,
+changed destinations or invalid clock keep local data. No forced card format.
+Retention can exceed the minimum because sweeps are periodic and incomplete
+backup prevents deletion. A prolonged backup failure can still fill the card.
+
+The receiver places data under a private owner Drive folder, then device/date
+subfolders. It produces a daily file index and readable Vietnamese summary JSON.
+The receiver/setup instructions are prepared in the local source project at
+cloud/google-drive; they are not deployed automatically by a firmware update.
+Existing run_*.csv logs from earlier versions remain untouched and are not
+imported automatically. Rabit's local history query window remains 35 days;
+this release does not add querying long-term Drive history from the assistant.
+
+Web gains Drive provisioning and status. APK 0.1.7 adds status only (configuration
+requires trusted HTTPS web), and is distributed separately from this repository.
+Optional ESP1 N16R8 octal PSRAM is initialized at 40 MHz; a missing external
+memory is tolerated, and allocation/upload failures keep the SD source.
+The existing control pins, C1 AUTO, button map, 75% supply minimum and OTA startup
+sensor validation policy are retained. No physical retention test is claimed.
