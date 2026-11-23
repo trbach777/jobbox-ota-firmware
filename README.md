@@ -176,3 +176,23 @@ a future date. At midnight, a pending new-day packet is not labelled a future da
 Authenticated state adds compact ai_tools diagnostics (tool name, turn and history
 status/date) to separate a missing tool call from unavailable recorded statistics.
 No configuration, statistics or secrets are reset. Live acceptance is still pending.
+
+## C1 startup offset trial (ESP1 0.1.34+35 / ESP2 0.8.28+39)
+
+Display-only trial: after 60 seconds of warm-up and with all fan commands off,
+collect 16 fresh C1/C2 pairs over at least 30 seconds. Reject an unstable difference
+(standard deviation above 10 ug/m3), then freeze delta = mean(C1 raw - C2 raw).
+C1 live display becomes max(0, C1 raw filtered - delta). It does not track C2 later.
+Place both intakes together in the same direction before learning.
+
+HMI C1 detail can toggle the trial; web and Android 0.1.9 can enable/relearn or
+turn it off. Only the enabled flag persists, while delta is relearned on reboot.
+The trial defaults enabled in this release. Live values are explicitly labelled.
+AUTO, SD logs, daily/weekly statistics, history charts and Google Sheets/Drive
+remain raw; no stored measurements are rewritten. Live assistant reports explain
+this distinction. This relative adjustment is not a traceable calibration.
+
+Host regressions, firmware builds and rendered HMI layouts passed. Hardware
+learning and installation have not yet been confirmed. Update ESP2 first, then
+ESP1 using confirmation on the HMI; the current ESP1 profile stages maintenance
+automatically. This distribution contains firmware and manifests only.
