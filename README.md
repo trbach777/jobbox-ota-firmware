@@ -261,3 +261,23 @@ No server account or cloud voice setting is changed.
 Host/UI/audio/speech and daily/weekly statistics regressions passed. Hardware
 installation and the final model-generated spoken response still need verification.
 Update ESP2 using the existing HMI OTA confirmation.
+
+## Restore unadjusted C1 display (ESP1 0.1.36+37)
+
+The previous first-frame C1-C2 startup offset could exceed a later filtered C1
+reading and clip its display to zero. The sensors are installed at different
+locations, so their difference does not establish a calibration offset.
+
+ESP1 now defaults that trial OFF and ignores the legacy automatic enabled flag.
+Only a new explicit manual_enabled flag can enable the existing trial again.
+Missing/read-error/invalid flags keep the trial off. On first upgrade C1 returns
+to its original filtered value; no artificial minimum or equalization is added.
+Actual measured zero remains zero. Later explicit requests still use the existing
+authenticated boot-bound command and ESP1 acknowledgement.
+
+Sensor acquisition, raw values, filters, AUTO, other settings, SD/cloud/statistics
+are unchanged. ESP2 remains 0.8.32+43 with its existing three-sensor display gate.
+This does not calibrate any sensor or assert which physical sensor is accurate.
+Host regression and ESP32-S3 build results are recorded in the release audit;
+physical raw/display comparison and hardware installation remain pending.
+Update ESP1 through the HMI OTA confirmation.
