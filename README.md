@@ -281,3 +281,23 @@ This does not calibrate any sensor or assert which physical sensor is accurate.
 Host regression and ESP32-S3 build results are recorded in the release audit;
 physical raw/display comparison and hardware installation remain pending.
 Update ESP1 through the HMI OTA confirmation.
+
+## Per-location dust regulation reference (ESP2 0.8.33+44)
+
+Adds compare_dust_standard(sensor1..3) for fresh raw PM2.5 with sensor location,
+source links and an explicit INSUFFICIENT_FOR_COMPLIANCE conclusion. QCVN05:2023/
+BTNMT references 24-hour PM2.5 at45 ug/Nm3 from2026 (50 before2026), and excludes
+indoor air (1.1.3). Instant unstandardized model readings are not 24-hour legal
+measurements. QCVN02:2019/BYT workplace cotton dust TWA1mg/m3 cannot be replaced
+by optical PM2.5; mixed cotton/polyester requires correct material/method review.
+No safe/unsafe certification is generated. The numeric relation is only a reference.
+Unknown A/B/C mapping asks for the actual location; stale/missing samples return
+no invented value. Raw, corrected live values, AUTO thresholds and records remain
+unchanged. Shared regulation knowledge is available in the web and Android0.1.11.
+
+Official source links and review date2026-11-26 are embedded. Updates are not
+automatically researched by the device. Host boundary/stale/zero/location tests,
+existing controller UI/history tests and ESP32-S3 build passed. Installation,
+server tool selection and actual spoken answers remain unverified. Touch-position
+fault remains a separate pending investigation; this release does not change it.
+Update ESP2 through HMI OTA confirmation. ESP1 stays0.1.36+37.
