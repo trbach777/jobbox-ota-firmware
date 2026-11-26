@@ -242,3 +242,22 @@ controls remain available according to their existing rules.
 ESP1 remains 0.1.35+36 with the same image hash. Update only ESP2 through HMI
 OTA confirmation. Host tests passed 2,623 assertions; ESP32-S3 build passed;
 22 rendered HMI pages had no layout issues. Hardware installation is pending.
+
+## Direct assistant reports (ESP2 0.8.32+43)
+
+Removes the unconditional paragraph about startup display compensation from live
+dust tool results. History tool output keeps its raw-measurement basis and compact
+alignment metadata, rather than injecting a spoken trial notice. Tool descriptions
+and daily answer instructions request direct answers and no unsolicited parameter
+adjustment announcements; explanations of adjustment remain appropriate when the
+user specifically asks about it or a discrepancy between live and recorded values.
+
+This release changes assistant context only. It does not hide real missing-sensor
+or stale-data errors, alter readings, change C1 offsets, or alter AUTO/control/logs.
+The HMI waits for all three valid sensors exactly as in 0.8.31+42. ESP1 remains
+0.1.35+36. The same assistant context is used by the box, web and Android clients.
+No server account or cloud voice setting is changed.
+
+Host/UI/audio/speech and daily/weekly statistics regressions passed. Hardware
+installation and the final model-generated spoken response still need verification.
+Update ESP2 using the existing HMI OTA confirmation.
