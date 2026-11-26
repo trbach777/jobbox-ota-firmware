@@ -301,3 +301,25 @@ existing controller UI/history tests and ESP32-S3 build passed. Installation,
 server tool selection and actual spoken answers remain unverified. Touch-position
 fault remains a separate pending investigation; this release does not change it.
 Update ESP2 through HMI OTA confirmation. ESP1 stays0.1.36+37.
+
+## Comparison first and promotional phrase filter (ESP2 0.8.34+45)
+
+For fresh readings at any of the three named locations, the dust-reference tool
+now returns COMPARISON_READY, signed difference, percentage and ratio, with a
+suggested answer leading with higher/lower/equal. Scope is explained briefly at
+the end. Missing/stale samples still require a new sample. Raw PM2.5, location,
+year-specific reference and no-compliance-verdict constraints are preserved.
+
+A bounded Vietnamese case/accent-normalized filter rejects known channel-
+subscription boilerplate in cloud STT before chat publication and in TTS
+sentence_start before reply handling. Rejected turns close their audio session,
+discard queued data and unpublished fan proposals, and resume conversation.
+Genuine commands and user questions/complaints about the phrase remain allowed.
+The root cause of the reported phrase has not been diagnosed from live logs;
+this finite filter cannot identify all unwanted content or recall audio already
+played before a server sentence notification arrives. Phone client transcripts
+may also be shown locally before cloud STT reaches the device.
+
+Host UI, audio, phrase-filter, numerical-reference and history checks passed;
+ESP32-S3 build passed. Hardware installation, cloud tool selection and physical
+audio acceptance remain pending. Update ESP2 via HMI OTA; ESP1 stays 0.1.36+37.

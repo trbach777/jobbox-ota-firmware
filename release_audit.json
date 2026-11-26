@@ -17,15 +17,22 @@
       "project": "jobbox_esp2_hmi",
       "schema": 1,
       "target": "jobbox-esp2-s3-n16r8",
-      "version": "0.8.33+44",
-      "build": 44,
-      "size": 1424448,
-      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.33-build44.bin",
-      "sha256": "c17b24a0cee70f292e589302c0264d98bf54c5b1d6394b310fa4517320332113"
+      "version": "0.8.34+45",
+      "build": 45,
+      "size": 1427680,
+      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.34-build45.bin",
+      "sha256": "8d8279a59947d0993c3370aac16821aa956ac7dbf686fb695b2fd3b28930cc56"
     }
   ],
   "checks": {
     "esp1_no_embedded_wifi_or_private_ai_config": true,
     "esp2_no_embedded_wifi_or_private_ai_config": true
+  },
+  "validation": {
+    "host": "2623 UI assertions; microphone DSP; Vietnamese numbers; promotional transcript/answer filter; numerical reference and missing/stale/location guards passed",
+    "history": "27758 date round trips and today/weekly history routing passed",
+    "build": "ESP32-S3 build passed with Wall/Wextra/Werror",
+    "install_and_live_audio": "pending",
+    "notes": "Known promotional boilerplate only; server ordering can allow some audio before sentence text. Not a root-cause diagnosis. Instant comparison is numerical reference, not an occupational compliance result."
   }
 }
