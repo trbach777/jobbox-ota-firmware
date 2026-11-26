@@ -323,3 +323,26 @@ may also be shown locally before cloud STT reaches the device.
 Host UI, audio, phrase-filter, numerical-reference and history checks passed;
 ESP32-S3 build passed. Hardware installation, cloud tool selection and physical
 audio acceptance remain pending. Update ESP2 via HMI OTA; ESP1 stays 0.1.36+37.
+
+## All three workshop locations and explicit comparison basis (ESP2 0.8.35+46)
+
+The comparison tool accepts sensor0 or an omitted sensor for all three locations
+in one call. Reports every fresh raw value with its installed location; ranks
+highest/lowest including ties and reports the range. Missing channels are named,
+never replaced with zero, and do not suppress healthy channels.
+
+MCP comparison basis now distinguishes workplace_regulation (default for circular
+and workshop safety questions), workshop_thresholds (actual acknowledged ESP1
+AUTO t1/t2), and explicit ambient_reference requests. It no longer silently
+answers workplace questions using outdoor standards. Workplace output includes
+QCVN02:2019/BYT under TT02/2019/TT-BYT and retains the distinction between optical
+PM2.5 and a cotton-dust shift TWA measurement. It does not calculate a fabricated
+legal pass/fail. Internal operating warning levels are labeled as configured
+thresholds, never called statutory exposure limits. Sensor/fan/controller logic
+and recorded raw data are unchanged.
+
+Host group/partial/tie/zero/threshold/location/freshness tests, UI/audio/promotion
+regressions and history tests passed. Catalog JSON and message-size checks passed.
+ESP32-S3 build passed; Android0.1.13 shares the updated knowledge. Runtime server
+tool selection and actual audio acceptance remain pending after OTA installation.
+Update ESP2 via HMI confirmation. ESP1 remains0.1.36+37.
