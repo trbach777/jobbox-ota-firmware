@@ -222,3 +222,23 @@ Both firmware builds, host regressions, HMI rendering and mobile/desktop diagnos
 panel tests passed. Hardware installation and physical learning remain unverified.
 The current 'Xưởng sản xuất may mặc' HMI/web title is preserved. Public files contain
 only deployable firmware, manifests, release checks and documentation.
+
+## HMI waits for all three sensors (ESP2 0.8.31+42)
+
+The overview and sensor detail pages only show numerical PM readings when C1,
+C2 and C3 are all valid and fresh in the current ESP1 state. Until then all
+sensor readings show --, with a count of available channels and channel fault
+hints. A healthy channel does not display its number while another channel is
+missing. After any channel becomes invalid or stale, all readings are hidden
+again; the complete group returns automatically when all three recover.
+
+The gate requires an ESP1 snapshot younger than 3 seconds, valid nodes, and
+sensor ages plus snapshot elapsed time strictly below 15 seconds. It does not
+change sensor polling or make the physical sampling times identical. Existing
+normal sensor warm-up and C1 display-only offset remain in place. Raw control,
+logging, statistics, cloud sync and web diagnostics are unchanged. Fan and buzzer
+controls remain available according to their existing rules.
+
+ESP1 remains 0.1.35+36 with the same image hash. Update only ESP2 through HMI
+OTA confirmation. Host tests passed 2,623 assertions; ESP32-S3 build passed;
+22 rendered HMI pages had no layout issues. Hardware installation is pending.
