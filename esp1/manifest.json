@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "target": "jobbox-esp1-s3-n16r8",
-  "version": "0.1.34+35",
-  "build": 35,
-  "size": 1177488,
-  "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp1/firmware-0.1.34-build35.bin",
-  "sha256": "487efb7212924259c0883ef9661876a96ca677f126d3d6eecbede0e5ef8e2c4a"
+  "version": "0.1.35+36",
+  "build": 36,
+  "size": 1176944,
+  "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp1/firmware-0.1.35-build36.bin",
+  "sha256": "fa2b134a1b7de983efe25c3e5a50dc4916e4dda74756dee887234ac21e86be4f"
 }

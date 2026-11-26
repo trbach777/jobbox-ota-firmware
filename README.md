@@ -196,3 +196,29 @@ Host regressions, firmware builds and rendered HMI layouts passed. Hardware
 learning and installation have not yet been confirmed. Update ESP2 first, then
 ESP1 using confirmation on the HMI; the current ESP1 profile stages maintenance
 automatically. This distribution contains firmware and manifests only.
+
+## Immediate C1 offset and quiet HMI (ESP1 0.1.35+36 / ESP2 0.8.30+41)
+
+Supersedes the 16-pair startup learning window: ESP1 latches delta = C1 raw - C2 raw
+as soon as each channel has a fresh, checked measurement. It does not wait for
+fan outputs to stop or for an additional averaging/warm-up gate. Missing samples,
+failed reads, samples older than 3 seconds and future timestamps cannot seed delta.
+The normal sensor display/control warm-up remains in place. Delta is frozen until
+reboot or explicit relearn; later C2 changes do not drag C1 along.
+
+The HMI now shows the adjusted live number with normal sample age/details, without
+compensation status, delta or a compensation button. Web/API and Android 0.1.10
+retain raw/adjusted diagnostic values and enable/relearn/disable controls. ESP2
+accepts both the new single-pair READY state and the previous 16-pair protocol.
+Install ESP2 first, then ESP1 using HMI OTA confirmation. Existing NVS settings,
+including a previously disabled compensation flag, are preserved.
+
+Raw AUTO inputs, SD logs, Google Drive/Sheets, charts and daily/weekly statistics
+are unchanged. No historical records are rewritten. This is relative alignment;
+first-frame sensor transients can affect the result, and it is not traceable
+calibration. Place C1/C2 intakes together before learning.
+
+Both firmware builds, host regressions, HMI rendering and mobile/desktop diagnostic
+panel tests passed. Hardware installation and physical learning remain unverified.
+The current 'Xưởng sản xuất may mặc' HMI/web title is preserved. Public files contain
+only deployable firmware, manifests, release checks and documentation.
