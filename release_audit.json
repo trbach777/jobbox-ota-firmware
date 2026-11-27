@@ -17,11 +17,11 @@
       "project": "jobbox_esp2_hmi",
       "schema": 1,
       "target": "jobbox-esp2-s3-n16r8",
-      "version": "0.8.39+50",
-      "build": 50,
-      "size": 1440160,
-      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.39-build50.bin",
-      "sha256": "0621a9b470ea8fd62aae49d6c5812905aaf3e6caf893adf49f2938ac2ff20c4b"
+      "version": "0.8.40+51",
+      "build": 51,
+      "size": 1441744,
+      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.40-build51.bin",
+      "sha256": "2b3f7fe81d09705aac7d588cc57a759101187adbb350ff661bd47173d74858df"
     }
   ],
   "checks": {
@@ -29,10 +29,8 @@
     "esp2_no_embedded_wifi_or_private_ai_config": true
   },
   "validation": {
-    "host": "3421 UI assertions; four large tab boundaries, six menu routes, reflowed hitboxes, modal/control/C1 regressions passed",
-    "clients": "27 exact ZI-font renders passed with zero layout issues; Android unchanged0.1.15",
+    "host": "506924 assertions, including 1000 independent normal/noisy utterances, exact 1.5/30 second boundaries, completion idempotence and clock regression; microphone DSP, speech, promotional filtering, dust and HMI regressions pass.",
     "build": "ESP32-S3 build passed with Wall/Wextra/Werror",
-    "install_and_live_audio": "pending",
-    "notes": "Four120x60 tabs and six222x62 Menu cards; restored touch semantics and C1 offset unchanged. Physical acceptance pending OTA."
+    "hardware": "pending OTA and repeated spoken questions. Root cause of the reported incident is not conclusively diagnosed without runtime audio telemetry."
   }
 }
