@@ -17,11 +17,11 @@
       "project": "jobbox_esp2_hmi",
       "schema": 1,
       "target": "jobbox-esp2-s3-n16r8",
-      "version": "0.8.36+47",
-      "build": 47,
-      "size": 1439776,
-      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.36-build47.bin",
-      "sha256": "92fd7faee72e46c654a2853e4fd3fbfea46584e9490346034c4fc35b390616f8"
+      "version": "0.8.37+48",
+      "build": 48,
+      "size": 1440032,
+      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.37-build48.bin",
+      "sha256": "fff9cc4da0b56062fdadcd9b0001613025730be5ed3f87717c4958e3ad434f90"
     }
   ],
   "checks": {
@@ -29,10 +29,10 @@
     "esp2_no_embedded_wifi_or_private_ai_config": true
   },
   "validation": {
-    "host": "3314 UI assertions including rendered pages via bounded HMI queue; ACK/probe/recovery/frame/touch tests; audio and comparison regressions passed",
-    "clients": "Headless web and Android bridge stop-AUTO fixtures passed; signed APK0.1.14 verified",
+    "host": "3342 UI assertions; navigation on press, missing/shifted release, same-page no redraw, modal/body guards, bounded frame and audio/comparison regressions passed",
+    "clients": "Web/Android unchanged from0.8.36; APK remains0.1.14",
     "build": "ESP32-S3 build passed with Wall/Wextra/Werror",
     "install_and_live_audio": "pending",
-    "notes": "AUTO stop can use a fresh identity-checked ESP1 link with HMI offline; start retains normal checks. No live touch trace proves a hardware cause; physical acceptance pending."
+    "notes": "Live UART/touch diagnostics support sensitivity and release-timing repair; no full-panel calibration was performed. Physical acceptance after OTA pending."
   }
 }

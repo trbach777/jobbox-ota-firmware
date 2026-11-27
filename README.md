@@ -372,3 +372,26 @@ ESP32-S3 build and signed APK checks passed. This is a software-path repair and
 adds diagnostics; no live USB trace proves the cause of the user's touch failure.
 Installation, physical touches and actual AI/ESP1 stop acceptance remain pending.
 Update ESP2 by HMI OTA when responsive. ESP1 stays0.1.36+37.
+
+## Responsive fixed navigation tabs (ESP2 0.8.37+48)
+
+Bottom navigation now acts on the initial press. Release is consumed and cannot
+choose an adjacent tab. Missing release no longer blocks navigation; same-tab
+press noise is debounced for160ms, and reselecting the active page does not
+restart full drawing. The fixed strip can navigate during scene drawing; body
+controls still wait for the frame ACK and normal press/release validation. Body
+hits use the original press coordinates after validation. Modal pages and pending
+AUTO-save guards remain. No coordinate calibration or rotation is changed.
+
+Live0.8.36 diagnostics showed healthy UART/no timeouts during the recorded tab
+trial, but one press/release pair rejected during drawing. A user-labeled left
+Tab tap was received inside its expected bounds, while paired press/release
+counts were temporarily unequal and page change waited for release. This supports
+a software sensitivity/timing repair; it is not a full touch-panel diagnosis.
+
+Validation:3342 UI assertions, including all five tabs, missing/shifted release,
+duplicate press, active-page no redraw, modal/body-control isolation, and all
+rendered pages via the bounded transport(maximum70/128commands). Existing HMI
+recovery, audio, promotion and dust-comparison checks passed. ESP32-S3 build passed.
+Installation and physical tab acceptance remain pending. Update ESP2 by HMI OTA.
+ESP1 remains0.1.36+37 and Android remains0.1.14.
