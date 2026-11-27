@@ -17,11 +17,11 @@
       "project": "jobbox_esp2_hmi",
       "schema": 1,
       "target": "jobbox-esp2-s3-n16r8",
-      "version": "0.8.37+48",
-      "build": 48,
-      "size": 1440032,
-      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.37-build48.bin",
-      "sha256": "fff9cc4da0b56062fdadcd9b0001613025730be5ed3f87717c4958e3ad434f90"
+      "version": "0.8.38+49",
+      "build": 49,
+      "size": 1440000,
+      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.38-build49.bin",
+      "sha256": "46396296e7efdc61546dbaf3846c46810644f11963ccd9306d217cba747c7f34"
     }
   ],
   "checks": {
@@ -29,10 +29,10 @@
     "esp2_no_embedded_wifi_or_private_ai_config": true
   },
   "validation": {
-    "host": "3342 UI assertions; navigation on press, missing/shifted release, same-page no redraw, modal/body guards, bounded frame and audio/comparison regressions passed",
-    "clients": "Web/Android unchanged from0.8.36; APK remains0.1.14",
+    "host": "3323 UI assertions; restored release selection, modal/motion/time guards, raw C1 correction and audio/comparison regressions passed",
+    "clients": "Desktop/mobile raw-offset panel fixtures passed; signed APK0.1.15 verified",
     "build": "ESP32-S3 build passed with Wall/Wextra/Werror",
     "install_and_live_audio": "pending",
-    "notes": "Live UART/touch diagnostics support sensitivity and release-timing repair; no full-panel calibration was performed. Physical acceptance after OTA pending."
+    "notes": "Original touch selection restored at user request. C1 current raw minus frozen raw-baseline delta; display-only, no factory reset. Physical acceptance and offset activation pending."
   }
 }

@@ -395,3 +395,29 @@ rendered pages via the bounded transport(maximum70/128commands). Existing HMI
 recovery, audio, promotion and dust-comparison checks passed. ESP32-S3 build passed.
 Installation and physical tab acceptance remain pending. Update ESP2 by HMI OTA.
 ESP1 remains0.1.36+37 and Android remains0.1.14.
+
+## Restore original touch selection and raw C1 offset (ESP2 0.8.38+49)
+
+Restores pre0.8.36 touch selection: press records x/y; release within2seconds
+and14pixels selects at release coordinates. Removes press-only navigation,
+its debounce/active-page shortcut, press-origin body targeting and scene touch
+blocking. Original tab geometry is retained. UART recovery/diagnostics and the
+acknowledged AUTO-stop fix remain. No factory reset, native TFT or physical
+calibration change; Wi-Fi and stored data are retained.
+
+C1 display correction now consistently uses current raw C1 minus a frozen raw
+C1/C2 baseline difference. Existing ESP1 first-pair capture, explicit enable/NVS
+persistence and relearn behavior are retained. Example:baseline89/41 -> delta48;
+current C1 raw100 displays52. The old display used filtered C1 minus a raw-derived
+delta, mixing bases. Negative corrected values clip0; authenticated diagnostics
+also provide the unclamped result and clipping flag. This is display adjustment
+to C2, not traceable physical calibration. Raw data, AUTO, archives/statistics
+and regulatory comparison values are unchanged. No correction notice is added
+to the HMI. Web/APK0.1.15 describe the raw-based formula correctly.
+
+Validation:3323 UI assertions including restored release selection, motion/time
+limits, modal guards and raw/filtered distinction; existing baseline freeze,
+zero/negative/stale/relearn tests; desktop/mobile offset panel fixtures passed.
+ESP32-S3 build and signed APK verification passed. OTA installation, physical
+old-touch acceptance and live offset activation remain pending. Update ESP2 via
+HMI OTA. ESP1 remains0.1.36+37.
