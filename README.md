@@ -421,3 +421,25 @@ zero/negative/stale/relearn tests; desktop/mobile offset panel fixtures passed.
 ESP32-S3 build and signed APK verification passed. OTA installation, physical
 old-touch acceptance and live offset activation remain pending. Update ESP2 via
 HMI OTA. ESP1 remains0.1.36+37.
+
+## Larger HMI navigation and Menu (ESP2 0.8.39+50)
+
+Replaces five96x42 bottom tabs with four120x60 slots: Tổng quan, Quạt, Trợ lý,
+Menu. Hit area increases78.57percent. Twenty-pixel labels and inset cards make
+targets clearer; original press/release selection is retained, with no coordinate
+remap or press-only handling. Active state and OTA badge follow the new slots.
+
+Menu contains six222x62cards for Cảnh báo, Cài đặt, Wi-Fi, Web/Android QR,
+Cập nhật and Cài AUTO. Existing page IDs remain unchanged. Body controls are
+reflowed above y260 with matching hitboxes; keyboard, confirmation and AI mic
+behavior remain. Menu navigation does not issue actuator commands. C1 adjustment,
+AUTO control, Wi-Fi, records and raw statistics are unchanged. No ESP1/TFT/APK
+update is required; ESP1 stays0.1.36+37 and Android stays0.1.15.
+
+Validation:3421 UI assertions including full tab boundaries, six Menu routes,
+modal/save/control guards and existing C1/voice/AUTO regressions passed. All15
+pages fit and drain the bounded queue(maximum70/128commands). Twenty-seven exact
+command renders with embedded ZI fonts have zero text/bounds/glyph issues; key
+pages were visually reviewed. ESP32-S3 build passed. Installation and physical
+large-tab acceptance remain pending. Install via existing HMI OTA confirmation;
+after installation use Menu > Cập nhật for future updates.
