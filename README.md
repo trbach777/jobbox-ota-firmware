@@ -466,3 +466,25 @@ DSP, speech formatting, dust, promo filter and HMI regressions passed; ESP32-S3
 build passed. The source gaps are verified, but the exact cause of the user's
 incident and repeated live speech acceptance remain pending device telemetry.
 Install by confirming the ESP2 update on the HMI.
+
+## Voice endpoint under changing background noise (ESP2 0.8.41+52)
+
+HMI conversation retains the 1.5second silence endpoint. Continuation now requires
+90ms of consecutive speech-positive frames, matching onset; isolated30/60ms
+bursts cannot keep resetting silence. A bounded60ms confirmation window prevents
+clipping a new word starting at the endpoint. During capture, VAD-negative
+frames can adapt the noise floor to changed fan/background levels; voiced frames
+do not raise the learned noise floor. The 30second cap and capture recovery remain.
+
+AUTO status is shown as soon as ESP1 acknowledges the action, without waiting
+for the spoken answer. Existing ACK timeout, boot/epoch and update/maintenance
+guards are retained. Authenticated runtime diagnostics add capture and silence
+age, continuation frames, capture-end/STT timestamps and AUTO ACK duration.
+No change to microphone gain, playback buffers, touch layout, raw sensor records,
+C1 correction, ESP1 or Android. Recovery never creates actuator commands.
+
+Validation includes1000 normal/noisy endpoint cycles, intermittent short pulses,
+endpoint-word confirmation, changed noise adaptation and preservation of voiced
+samples; previous UI/DSP/speech/HMI/dust regressions and ESP32-S3 build passed.
+Live installation, actual spoken command latency and audio acceptance are pending.
+This targets identified recording delays; cloud ASR/TTS latency is not guaranteed.
