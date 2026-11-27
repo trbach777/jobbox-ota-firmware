@@ -17,11 +17,11 @@
       "project": "jobbox_esp2_hmi",
       "schema": 1,
       "target": "jobbox-esp2-s3-n16r8",
-      "version": "0.8.42+53",
-      "build": 53,
-      "size": 1468544,
-      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.42-build53.bin",
-      "sha256": "f79d6f431bf945b83c292ac431bc1c7138d6898a15ceff311c247d7273b1bc90"
+      "version": "0.8.43+54",
+      "build": 54,
+      "size": 1472672,
+      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.43-build54.bin",
+      "sha256": "c7601885142dd3dcde5052035d6076f0e3c941b2111f860dc7edf1c0e331ea7b"
     }
   ],
   "checks": {
@@ -29,9 +29,8 @@
     "esp2_no_embedded_wifi_or_private_ai_config": true
   },
   "validation": {
-    "host": "506976 UI assertions plus existing DSP/voice/dust/HMI regressions pass. Added quiet-trough noise-floor test and real voice_listener.c integration using deterministic I2S/NS/VAD/RTOS shims: exact10ms frame counts, cleaned stream identity, no loss/reordering,1.5second endpoint, overflow rearm, hard I2S failure, NS/task allocation cleanup.",
-    "scope": "Host NS is a deterministic mock to test wiring/framing, not an acoustic-quality benchmark. Vendor NS quality, CPU timing, internal heap and actual ASR need live device acceptance.",
-    "build": "ESP32-S3 build passed with Wall/Wextra/Werror",
-    "hardware": "pending OTA and fresh silence/spoken tests."
+    "host": "506976 UI assertions plus DSP/voice/HMI/dust/listener regressions pass. HMI diagnostics privacy/timestamps and timeout command context tested. New memory service tests valid/overlapping/oversize/empty/capped partition enumerations, failure hook, scoped canary result and loop/stack watermarks.",
+    "build": "ESP32-S3 build with Wall/Wextra/Werror passed; linker verifies5application objects59200bytes in PSRAM; compiled partition fit and nonoverlap pass.",
+    "hardware": "pending installation, heap check and a repeat touch test; this is a memory optimization and diagnostic build, not a claimed fix for physical touch failure."
   }
 }

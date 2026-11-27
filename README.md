@@ -516,3 +516,33 @@ shims to check exact framing, cleaned-stream identity, endpoint, bounded ring
 recovery and initialization failure cleanup. The NS shim is not an acoustic
 quality test. ESP32-S3 build passed; live NS timing, heap, speech recognition
 and repeated conversation acceptance are pending OTA installation.
+
+## Internal RAM headroom and HMI diagnostics (ESP2 0.8.43+54)
+
+Moves five task-owned application buffers (HMI queue/session, UI and chat/mobile
+snapshots) to external BSS in PSRAM. Linker verifies59200bytes for these objects,
+and73720bytes total external BSS including library data. Actual live free-heap
+gain remains to be measured. UART/DMA/ISR data remains internal. No flash
+partition resize, NVS erase, model rewrite, touch-coordinate transformation or
+calibration reset is performed. Existing HMI recovery timing is retained.
+
+Enables light heap allocation canaries, records allocation failures without
+allocating/logging from the hook, and exposes authenticated /api/diagnostics
+for internal heap checks, watermarks, app_main progress/stack, reset reason and
+actual partition bounds/overlap checks. Full PSRAM and static arrays are not
+covered by that heap check. Additional HMI telemetry records press/release
+coordinates/times and the numeric command prefix in flight at a fault, without
+rendered private text. Asynchronous errors are not conclusively attributed to
+the command in flight.
+
+Baseline on0.8.42 had only about23KB internal free and7.5MB PSRAM free, while
+HMI ACK timeouts/recoveries and nonresponsive touch were observed. No heap
+overflow or hardware touch fault has been proven. This is a memory optimization
+and diagnostic build, not a confirmed repair for the physical touch incident.
+
+Validation: previous UI/DSP/voice/listener/dust/HMI regressions, privacy and
+command-context tests, and new memory-service failure/bounds tests pass.
+ESP32-S3 build and linker checks pass; image1472672bytes fits both3014656byte
+OTA slots with1541984bytes spare. ESP1, Android, voice buffers, fan/AUTO control,
+C1 correction and raw SD/Drive records are unchanged. Installation and live
+heap/touch acceptance are pending.
