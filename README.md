@@ -488,3 +488,31 @@ endpoint-word confirmation, changed noise adaptation and preservation of voiced
 samples; previous UI/DSP/speech/HMI/dust regressions and ESP32-S3 build passed.
 Live installation, actual spoken command latency and audio acceptance are pending.
 This targets identified recording delays; cloud ASR/TTS latency is not guaranteed.
+
+## Microphone noise suppression and recognition timeout (ESP2 0.8.42+53)
+
+Adds the ESP-SR2.6.1 vendor medium noise suppressor with10ms/160sample frames
+at16kHz. Both VAD and upstream Opus receive the same cleaned PCM. Processing
+is continuous with fixed buffers and no new speech-model partition. Capture
+noise-floor descent is slower so brief quiet troughs do not collapse the gate.
+The device's own spoken reply no longer calibrates the speech gate.
+
+A turn without a current nonempty transcript waits15seconds for recognition,
+then closes and refreshes the route before rearming, instead of occupying the
+60second answer wait. Recognized questions retain60seconds for cloud replies.
+The1.5second endpoint,30second cap, HMI button conversation, gain, filters,
+playback buffering, fan/AUTO ACK checks, raw archives and C1 display correction
+are retained. ESP1 and Android are unchanged.
+
+Authenticated diagnostics add raw/clean RMS, PCM/processed samples, NS peak
+processing time, VAD/gate counts, transmitted Opus packet/byte/time totals and
+transcript status/timeouts. No raw recordings, transcripts or credentials are
+added to the public firmware distribution. OTA self-test now also requires
+initialized NS and recent processed microphone samples before accepting boot.
+
+Validation: existing UI/DSP/voice/HMI/dust regressions and quiet-trough tests
+passed. Integration exercises the real listener with deterministic hardware
+shims to check exact framing, cleaned-stream identity, endpoint, bounded ring
+recovery and initialization failure cleanup. The NS shim is not an acoustic
+quality test. ESP32-S3 build passed; live NS timing, heap, speech recognition
+and repeated conversation acceptance are pending OTA installation.

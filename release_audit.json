@@ -17,11 +17,11 @@
       "project": "jobbox_esp2_hmi",
       "schema": 1,
       "target": "jobbox-esp2-s3-n16r8",
-      "version": "0.8.41+52",
-      "build": 52,
-      "size": 1442464,
-      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.41-build52.bin",
-      "sha256": "b546e702c9b0de24e43599c6c6a49434a4bb77fa6b66e45cbf7844fb5506d11e"
+      "version": "0.8.42+53",
+      "build": 53,
+      "size": 1468544,
+      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.42-build53.bin",
+      "sha256": "f79d6f431bf945b83c292ac431bc1c7138d6898a15ceff311c247d7273b1bc90"
     }
   ],
   "checks": {
@@ -29,8 +29,9 @@
     "esp2_no_embedded_wifi_or_private_ai_config": true
   },
   "validation": {
-    "host": "506976 assertions; repeated utterances,30/60ms intermittent false positives, word starting at endpoint, bounded confirmation grace, changed noise floor, voiced-signal preservation and all previous UI/DSP/voice/HMI/dust regressions passed.",
+    "host": "506976 UI assertions plus existing DSP/voice/dust/HMI regressions pass. Added quiet-trough noise-floor test and real voice_listener.c integration using deterministic I2S/NS/VAD/RTOS shims: exact10ms frame counts, cleaned stream identity, no loss/reordering,1.5second endpoint, overflow rearm, hard I2S failure, NS/task allocation cleanup.",
+    "scope": "Host NS is a deterministic mock to test wiring/framing, not an acoustic-quality benchmark. Vendor NS quality, CPU timing, internal heap and actual ASR need live device acceptance.",
     "build": "ESP32-S3 build passed with Wall/Wextra/Werror",
-    "hardware": "pending OTA and a measured spoken AUTO stop. This reduces identified recording delays; ASR/cloud response time is not guaranteed."
+    "hardware": "pending OTA and fresh silence/spoken tests."
   }
 }
