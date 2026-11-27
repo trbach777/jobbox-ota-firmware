@@ -346,3 +346,29 @@ regressions and history tests passed. Catalog JSON and message-size checks passe
 ESP32-S3 build passed; Android0.1.13 shares the updated knowledge. Runtime server
 tool selection and actual audio acceptance remain pending after OTA installation.
 Update ESP2 via HMI confirmation. ESP1 remains0.1.36+37.
+
+## HMI link recovery and AUTO stop (ESP2 0.8.36+47)
+
+Stop AUTO now permits a fresh ESP1 link even if the HMI heartbeat is offline.
+Boot/epoch, output arming, pending-command, maintenance and update checks remain;
+start AUTO and other control paths retain their HMI requirements. Cloud set_auto
+accepts the bare alias and its catalog explicitly maps stop to on=false. Success
+still requires an ESP1 ACK. Web and Android0.1.14 allow the stop button in this
+case, while retaining normal requirements to start AUTO.
+
+HMI drawing/UART is managed by a bounded single-owner session. After missing ACK
+or reset, it restores bkcmd, watchdog heartbeat and coordinate reporting, verifies
+a numeric probe, and redraws. A scene-completion barrier rejects touches against
+controls not yet drawn; subsequent live-data refreshes cannot prolong that barrier.
+Authenticated diagnostics report UART/probe/touch/timeout/recovery counters,
+coordinates and AUTO call/acceptance flags. No coordinate rotation, calibration,
+HMI TFT update, sensor/fan logic or ESP1 image is changed.
+
+Validation:3314 UI assertions, all rendered pages through the actual bounded
+queue(maximum70/128 commands), transport fault/recovery and sustained-traffic
+tests, audio and comparison regressions passed. Headless browser fixtures for web
+and Android bridge verified on=false/current identity when HMI is unavailable.
+ESP32-S3 build and signed APK checks passed. This is a software-path repair and
+adds diagnostics; no live USB trace proves the cause of the user's touch failure.
+Installation, physical touches and actual AI/ESP1 stop acceptance remain pending.
+Update ESP2 by HMI OTA when responsive. ESP1 stays0.1.36+37.

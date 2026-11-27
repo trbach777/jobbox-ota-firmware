@@ -17,11 +17,11 @@
       "project": "jobbox_esp2_hmi",
       "schema": 1,
       "target": "jobbox-esp2-s3-n16r8",
-      "version": "0.8.35+46",
-      "build": 46,
-      "size": 1436768,
-      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.35-build46.bin",
-      "sha256": "411cb8163c7af18a9bb5c4fc643e408866bd11c956386310245c3e77cb7730d0"
+      "version": "0.8.36+47",
+      "build": 47,
+      "size": 1439776,
+      "url": "https://raw.githubusercontent.com/trbach777/jobbox-ota-firmware/main/esp2/firmware-0.8.36-build47.bin",
+      "sha256": "92fd7faee72e46c654a2853e4fd3fbfea46584e9490346034c4fc35b390616f8"
     }
   ],
   "checks": {
@@ -29,10 +29,10 @@
     "esp2_no_embedded_wifi_or_private_ai_config": true
   },
   "validation": {
-    "host": "2623 UI assertions; microphone DSP; Vietnamese numbers; promotional transcript/answer filter; numerical reference and missing/stale/location guards passed",
-    "history": "27758 date round trips and today/weekly history routing passed",
+    "host": "3314 UI assertions including rendered pages via bounded HMI queue; ACK/probe/recovery/frame/touch tests; audio and comparison regressions passed",
+    "clients": "Headless web and Android bridge stop-AUTO fixtures passed; signed APK0.1.14 verified",
     "build": "ESP32-S3 build passed with Wall/Wextra/Werror",
     "install_and_live_audio": "pending",
-    "notes": "All3 report, partial/tie/zero ranking and configured threshold comparison passed; workplace PM2.5 is not a cotton-dust TWA measurement. No invented regulatory verdict. Explicit ambient basis only."
+    "notes": "AUTO stop can use a fresh identity-checked ESP1 link with HMI offline; start retains normal checks. No live touch trace proves a hardware cause; physical acceptance pending."
   }
 }
